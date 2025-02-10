@@ -1,5 +1,6 @@
 const express = require("express");
 const authMiddleware = require("../middleware/authMiddleware");
+const roleMiddleware = require("../middleware/roleMiddleware");
 const {
   getAllCourses,
   deleteCourse,
@@ -12,6 +13,8 @@ const router = express.Router();
 
 // Proctected routes with authMiddleware
 router.use(authMiddleware);
+// Proctected routes with roleMiddleware
+router.use(roleMiddleware);
 
 router.get("/all-courses", getAllCourses);
 router.delete("/:courseName", deleteCourse);

@@ -20,7 +20,7 @@ const loginAuth = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
     const jwtToken = jwt.sign(
-      { role: user.role, _id: user._id }, // add the student number to the token
+      { role: user.role, _id: user._id }, // add the student id to the token
       process.env.JWT_SECRET_KEY, // secret key
       {
         expiresIn: process.env.JWT_EXPIRES_IN, // expiration time
