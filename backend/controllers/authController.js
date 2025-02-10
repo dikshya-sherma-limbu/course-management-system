@@ -20,7 +20,7 @@ const loginAuth = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
     const jwtToken = jwt.sign(
-      { role: user.role }, // add the student number to the token
+      { role: user.role, _id: user._id }, // add the student number to the token
       process.env.JWT_SECRET_KEY, // secret key
       {
         expiresIn: process.env.JWT_EXPIRES_IN, // expiration time
@@ -49,6 +49,9 @@ const logoutAuth = (req, res) => {
 const registerAdmin = async (req, res) => {
   const { firstName, lastName, email, password, role } = req.body;
 
+  // User.collection.dropIndex("studentNumber_1").catch((err) => {
+  //   console.log("Index not found or already removed:", err.message);
+  // });
   try {
     // Check if the email is already registered
     const existingAdmin = await User.findOne({ email });
@@ -68,6 +71,7 @@ const registerAdmin = async (req, res) => {
 
     res.status(201).json({ message: "Admin registered successfully" });
   } catch (err) {
+    console.log("Error registering admin: ", err);
     res.status(500).json({ message: err.message });
   }
 };

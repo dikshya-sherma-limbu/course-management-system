@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const User = require("../models/userModel");
 dotenv.config(); // Load environment variables from .env file
 
 //To verify the user authentication
@@ -14,7 +15,10 @@ const authMiddleware = (req, res, next) => {
   }
   try {
     const decodeToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+
     req.role = decodeToken.role;
+    req.userId = decodeToken._id;
+
     next(); // tells middleware has finished its job
   } catch (error) {
     console.log("Error verifying token: ", error);

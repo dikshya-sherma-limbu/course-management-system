@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const userSchema = new mongoose.Schema({
   studentNumber: {
     type: Number,
+    unique: false, // Ensure the unique property is set to false
   },
   firstName: {
     type: String,

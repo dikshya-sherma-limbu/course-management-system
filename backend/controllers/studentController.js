@@ -18,8 +18,9 @@ const getAllStudents = async (req, res) => {
 // get students by course-name
 const getStudentsByCourse = async (req, res) => {
   try {
-    const courseName = req.params.courseName;
-    const students = await User.find({ program: courseName });
+    const courseName = req.params.program;
+    const students = await User.find({ program: courseName, role: "student" });
+    console.log("students: ", students);
     if (students) {
       res.status(200).json(students);
     } else {

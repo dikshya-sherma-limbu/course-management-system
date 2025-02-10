@@ -1,9 +1,9 @@
 const Course = require("../models/courseModel");
-
 // get all courses
 const getAllCourses = async (req, res) => {
   try {
     const allCourses = await Course.find();
+    console.log("allCourses: ", allCourses);
     if (allCourses) {
       res.status(200).json(allCourses); // return all courses in json format
     } else {
@@ -71,16 +71,19 @@ const addCourse = async (req, res) => {
   // get course as a courseModel object
   const { courseName } = req.body;
 
+  // get the logged in user id
+  const userId = req.userId;
+
   try {
     // Check if the course is already registered
     const existingCourse = await Course.findOne({ courseName });
     if (existingCourse) {
       return res.status(400).json({ message: "Course already exists" });
     }
-
     // Create a new course
     const course = new Course({
-      courseName,
+      ...req.body,
+      students: [userId],
     });
     await course.save();
 

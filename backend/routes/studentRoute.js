@@ -13,7 +13,7 @@ router.use(authMiddleware);
 // Protected routes with roleMiddleware - only admin can access these routes
 router.use(roleMiddleware("admin"));
 router.get("/all-student", getAllStudents);
-router.get("/:courseName", getStudentsByCourse);
+router.get("/:program", getStudentsByCourse);
 router.post("/add-student", addStudent);
 
 module.exports = router;

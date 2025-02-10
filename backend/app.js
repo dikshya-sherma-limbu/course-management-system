@@ -22,4 +22,5 @@ const courseRoute = require("./routes/courseRoute");
 app.use("/api/users", userRoute);
 app.use("/api/students", studentRoute);
 app.use("/api/courses", courseRoute);
+
 module.exports = app;
